@@ -1,0 +1,56 @@
+version: '3'
+services:
+  app: &app
+    build: .
+    command: python duplications/app.py --read movies.tsv --save duplicates.txt
+    networks:
+      - ns
+    volumes:
+      - .:/usr/src/app
+
+
+  format-imports:
+    <<: *app
+    command: isort -rc duplications
+    networks:
+      - ns
+    volumes:
+      - .:/usr/src/app
+
+
+  check-format-imports:
+    <<: *app
+    command: isort --check-only -rc duplications
+    depends_on: []
+    volumes:
+      - .:/usr/src/app
+
+
+  format:
+    <<: *app
+    command: black -l 79 --target-version py36 duplications
+    networks:
+      - ns
+    volumes:
+      - .:/usr/src/app
+
+
+  check-format:
+    <<: *app
+    command: black -l 79 --target-version py36 --check duplications
+    depends_on: []
+    volumes:
+      - .:/usr/src/app
+
+  style:
+    <<: *app
+    command: pylint duplications
+    depends_on: []
+    volumes:
+      - .:/usr/src/app
+
+
+networks:
+  ns:
+    driver: bridge
+
