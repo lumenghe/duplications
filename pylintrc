@@ -1,0 +1,4 @@
+[MESSAGE CONTROL]
+# W1203: logging-fstring-interpolation
+# C0103: invalid-name
+disable=W1203, C0103
