@@ -7,4 +7,4 @@ logger = logging.getLogger(__name__)
 
 
 class DuplicationsFinder:
-    ...
+    """Class to find duplication movies"""
