@@ -9,3 +9,4 @@ logger = logging.getLogger(__name__)
 class DuplicationsFinder:
     """Class to find duplication movies"""
     LEFT_THRESHOLD = 0.95
+    RIGHT_THRESHOLD = 1.05
