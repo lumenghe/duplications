@@ -12,4 +12,7 @@ class DuplicationsFinder:
     RIGHT_THRESHOLD = 1.05
 
     def __init__(self):
-        pass
+        logging.basicConfig(level=logging.INFO)
+        self._id2data = {}
+        self._year2ids = defaultdict(set)
+        self._genre2ids = defaultdict(set)
