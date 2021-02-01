@@ -17,3 +17,6 @@ class DuplicationsFinder:
         self._id2data = {}
         self._year2ids = defaultdict(set)
         self._genre2ids = defaultdict(set)
+
+    def read_file(self, filepath):
+        ...
