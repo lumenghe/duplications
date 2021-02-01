@@ -19,4 +19,4 @@ class DuplicationsFinder:
         self._genre2ids = defaultdict(set)
 
     def read_file(self, filepath):
-        ...
+        pass
