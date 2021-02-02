@@ -20,3 +20,6 @@ class DuplicationsFinder:
 
     def read_file(self, filepath):
         pass
+
+    def process(self, output):
+        pass
