@@ -23,3 +23,6 @@ class DuplicationsFinder:
 
     def process(self, output):
         pass
+
+    def process_per_year(self, years, genres):
+        ...
