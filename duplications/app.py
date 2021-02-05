@@ -26,3 +26,6 @@ class DuplicationsFinder:
 
     def process_per_year(self, years, genres):
         ...
+
+    def process_per_genre(self, sel_years, genres, matchings):
+        ...
