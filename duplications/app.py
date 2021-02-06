@@ -22,7 +22,17 @@ class DuplicationsFinder:
         pass
 
     def process(self, output):
-        pass
+        """process to find duplications and save in output file
+        :param output: output file path
+        :return: None
+        """
+        years = sorted(self._year2ids.keys())
+        genres = sorted(self._genre2ids.keys())
+
+        matchings = self.process_per_year(years, genres)
+
+        # save duplications per year
+        self.save_duplicates(matchings, output)
 
     def process_per_year(self, years, genres):
         ...
