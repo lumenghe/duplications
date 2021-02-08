@@ -19,7 +19,43 @@ class DuplicationsFinder:
         self._genre2ids = defaultdict(set)
 
     def read_file(self, filepath):
-        pass
+        """read file by filepath
+        :param filepath: csv / tsv file path
+        :return: None
+        """
+        with open(filepath, "r") as content:
+            for i, line in enumerate(content):
+                if i == 0:
+                    continue  # skip header
+
+                l = line.strip().split("\t")
+                _id = l[0]
+
+                _year = int(l[1])
+                _length = int(l[2])
+                _genres = l[3]
+                _directors = (
+                    set(l[4].strip().split(","))
+                    if l[4].strip() != "\\N"
+                    else set()
+                )
+                _actors = (
+                    set(l[5].strip().split(","))
+                    if l[5].strip() != "\\N"
+                    else set()
+                )
+                self._id2data[_id] = dict(
+                    length=_length,
+                    directors=_directors,
+                    actors=_actors,
+                    min_length=self.LEFT_THRESHOLD * _length,
+                    max_length=self.RIGHT_THRESHOLD * _length,
+                )
+                self._year2ids[_year].add(_id)
+                for _genre in _genres.split(","):
+                    self._genre2ids[_genre].add(_id)
+
+                print(f"\rReading {i}", end="")
 
     def process(self, output):
         """process to find duplications and save in output file
