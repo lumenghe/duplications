@@ -71,7 +71,18 @@ class DuplicationsFinder:
         self.save_duplicates(matchings, output)
 
     def process_per_year(self, years, genres):
-        ...
+        """process per year to find duplications
+        :param years: list of years.
+        :param genres: list of genres.
+        :return: matchings result
+        """
+        matchings = defaultdict(set)
+        # Process by year, year+1
+        for prev_year, year in zip(years[:-1], years[1:]):
+            sel_years = [prev_year, year] if prev_year == year - 1 else [year]
+            matchings = self.process_per_genre(sel_years, genres, matchings)
+
+        return matchings
 
     def process_per_genre(self, sel_years, genres, matchings):
         ...
