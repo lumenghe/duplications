@@ -85,4 +85,52 @@ class DuplicationsFinder:
         return matchings
 
     def process_per_genre(self, sel_years, genres, matchings):
-        ...
+        """process per process_per_genre to find duplications
+        :param sel_years: group by years which could have duplication movies
+        :param genres: list of genres.
+        :param matchings: matchings saved
+        :return: matchings result
+        """
+        year_ids = set.union(
+            *[self._year2ids[year] for year in sel_years]
+        )  # ids for selected years
+        matches = 0
+        candidates = 0
+        for genre in genres:
+            genre_ids = self._genre2ids[genre]  # ids for selected genre
+            sel_ids = list(
+                year_ids.intersection(genre_ids.union(self._genre2ids["\\N"]))
+            )
+
+            for i, id_i in enumerate(sel_ids):
+                data_i = self._id2data[id_i]
+                for _, id_j in enumerate(sel_ids[i + 1 :]):
+                    data_j = self._id2data[id_j]
+                    candidates += 1
+                    if (
+                            data_i["min_length"]
+                            < data_j["length"]
+                            < data_i["max_length"]
+                            and data_j["min_length"]
+                            < data_i["length"]
+                            < data_j["max_length"]
+                    ):
+                        name_matches = self.check_names(
+                            data_i["directors"], data_j["directors"]
+                        ) + self.check_names(
+                            data_i["actors"], data_j["actors"]
+                        )
+                        if name_matches >= 3:
+                            matchings[id_i].add(id_j)
+                            matches += 1
+
+        logger.info(
+            "Year %s. Number of matchings: %d / %d (total: %d)",
+            sel_years,
+            matches,
+            candidates,
+            sum(len(v) for v in matchings.values()),
+        )
+
+        return matchings
+
