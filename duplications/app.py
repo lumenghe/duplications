@@ -155,3 +155,6 @@ class DuplicationsFinder:
 
         return 0
 
+    @staticmethod
+    def save_duplicates(matchings, save_file):
+        ...
