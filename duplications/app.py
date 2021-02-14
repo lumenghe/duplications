@@ -168,5 +168,17 @@ class DuplicationsFinder:
                 output.writelines(lines)
         output.close()
 
+
 def main():
     """ main function """
+    parser = argparse.ArgumentParser(description="Find duplication movies.")
+    parser.add_argument("--read", type=str, required=True, help="tsv file ")
+    parser.add_argument("--save", type=str, required=True, help="tsv file ")
+    args = parser.parse_args()
+    finder = DuplicationsFinder()
+    finder.read_file(args.read)
+    finder.process(output=args.save)
+
+
+if __name__ == "__main__":
+    main()
