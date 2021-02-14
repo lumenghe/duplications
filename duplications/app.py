@@ -136,4 +136,22 @@ class DuplicationsFinder:
 
     @staticmethod
     def check_names(names, others):
-        ...
+        """check_names
+        :param name: 1st name to check
+        :param other: 2nd name to check
+        :return: int
+            0 if both \\N or no subset,
+            1 if one is \\N,
+            2 if both not \\N and one subset of the other
+        """
+        if not names and not others:
+            return 0
+
+        if not names or not others:
+            return 1
+
+        if names.issubset(others) or others.issubset(names):
+            return 2
+
+        return 0
+
