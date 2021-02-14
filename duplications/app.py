@@ -157,4 +157,13 @@ class DuplicationsFinder:
 
     @staticmethod
     def save_duplicates(matchings, save_file):
-        ...
+        """save duplicates
+        :param matchings: matchings results
+        :param save file: output file
+        :return: None
+        """
+        with open(save_file, "w") as output:
+            for ref_id, movies in matchings.items():
+                lines = [ref_id + "\t" + mov_id + "\n" for mov_id in movies]
+                output.writelines(lines)
+        output.close()
