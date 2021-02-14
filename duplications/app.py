@@ -167,3 +167,6 @@ class DuplicationsFinder:
                 lines = [ref_id + "\t" + mov_id + "\n" for mov_id in movies]
                 output.writelines(lines)
         output.close()
+
+def main():
+    """ main function """
