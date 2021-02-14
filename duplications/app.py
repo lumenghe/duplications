@@ -134,3 +134,6 @@ class DuplicationsFinder:
 
         return matchings
 
+    @staticmethod
+    def check_names(names, others):
+        ...
