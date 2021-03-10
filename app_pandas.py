@@ -7,6 +7,9 @@ class DuplicationsFinder:
     LEFT_THRESHOLD = 1.95 / 2.05
     RIGHT_THRESHOLD = 2.05 / 1.95
 
+    def __init__(self):
+        logging.basicConfig(level=logging.INFO)
+
 def main():
     ...
 
