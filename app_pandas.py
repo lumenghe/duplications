@@ -10,6 +10,15 @@ class DuplicationsFinder:
     def __init__(self):
         logging.basicConfig(level=logging.INFO)
 
+    @staticmethod
+    def read_file(filepath):
+        """read file by filepath
+        :param filepath: csv / tsv file path
+        :return: dataframe from file
+        """
+        df = pd.read_csv(filepath, sep="\t")
+        return df
+
 def main():
     ...
 
